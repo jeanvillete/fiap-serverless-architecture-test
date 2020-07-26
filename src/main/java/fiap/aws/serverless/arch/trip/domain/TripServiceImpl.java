@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 
 public class TripServiceImpl implements TripService {
 
-    public static final String DATE_FORMAT_PATTERN = "YYYY/mm/DD";
+    public static final String DATE_FORMAT_PATTERN = "yyyy/MM/dd";
 
     private static int COUNTRY_MIN_LENGTH = 4;
     private static int COUNTRY_MAX_LENGTH = 35;
@@ -78,7 +78,10 @@ public class TripServiceImpl implements TripService {
         try {
             LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
         } catch (DateTimeParseException dateTimeParseException) {
-            throw new InvalidSuppliedDataException("The supplied date must follow the pattern [" + DATE_FORMAT_PATTERN + "]");
+            throw new InvalidSuppliedDataException(
+                    "Invalid date value [" + date + "], the supplied date must follow the pattern" +
+                            " [" + DATE_FORMAT_PATTERN + "]."
+            );
         }
     }
 
