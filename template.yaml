@@ -24,8 +24,6 @@ Resources:
           AttributeType: S
         - AttributeName: city
           AttributeType: S
-        - AttributeName: reason
-          AttributeType: S
       KeySchema:
         - AttributeName: date
           KeyType: RANGE
