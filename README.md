@@ -1,6 +1,10 @@
 # Desenvolvimento Local
   
-Criação tabela dynamodb
+1 - Confirmar que o container do dynamodb está rodando localmente;
+
+    $ docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data
+  
+2 - Criação tabela dynamodb;
 
     $ aws dynamodb create-table \
         --table-name trip_mgnt \
