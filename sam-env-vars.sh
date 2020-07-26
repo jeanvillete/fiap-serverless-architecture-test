@@ -6,6 +6,7 @@ if [[ $# -ne 1 ]]; then
 fi
 
 toip="$1"
+tmpoutput="./envvars.tmp"
 envvars=$( cat <<EOF
 {
   "CreateATripRecordFunction": {
@@ -16,4 +17,6 @@ envvars=$( cat <<EOF
 EOF
 )
 
-echo "$envvars"
+echo -n "$envvars" > "$tmpoutput"
+
+echo -n "$tmpoutput"
