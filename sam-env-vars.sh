@@ -2,6 +2,7 @@
 
 if [[ $# -ne 1 ]]; then
   echo -e "\tParameter \"to ip\" is mandatory."
+  echo -e "\tSample usage; $ ./sam-env-vars.sh \"127.0.0.1\""
   exit 1
 fi
 
