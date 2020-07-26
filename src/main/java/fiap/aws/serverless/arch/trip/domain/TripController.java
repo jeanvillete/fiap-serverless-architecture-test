@@ -84,7 +84,7 @@ public abstract class TripController extends Controller {
             try {
                 LOGGER.log(context.getAwsRequestId() + "; Request for listing trips by period.");
 
-                Map<String, String> queryStrings = requestMapping.getPathParameters();
+                Map<String, String> queryStrings = requestMapping.getQueryStringParameters();
                 if (queryStrings == null || queryStrings.isEmpty()) {
                     throw new InvalidSuppliedDataException(
                             "Query strings start date and end date are mandatory to be provided."
