@@ -27,11 +27,15 @@ Resources:
         - AttributeName: reason
           AttributeType: S
       KeySchema:
-        - AttributeName: country
-          KeyType: HASH
         - AttributeName: date
           KeyType: RANGE
       LocalSecondaryIndexes:
+        - IndexName: countryLSI
+          KeySchema:
+            - AttributeName: country
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
         - IndexName: cityLSI
           KeySchema:
             - AttributeName: country
