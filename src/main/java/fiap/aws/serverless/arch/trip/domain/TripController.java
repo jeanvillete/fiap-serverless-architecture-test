@@ -11,9 +11,11 @@ import fiap.aws.serverless.arch.common.infrastructure.Controller;
 import fiap.aws.serverless.arch.trip.domain.usecase.TripUseCase;
 import fiap.aws.serverless.arch.trip.domain.usecase.TripUseCase.TripPayload;
 
+import java.util.List;
+
 public abstract class TripController extends Controller {
 
-    private final TripUseCase tripUseCase;
+    protected final TripUseCase tripUseCase;
 
     public TripController(TripUseCase tripUseCase) {
         this.tripUseCase = tripUseCase;
@@ -38,7 +40,7 @@ public abstract class TripController extends Controller {
                 TripPayload tripRequestPayload = parseBody(requestMapping, TripPayload.class);
                 LOGGER.log(context.getAwsRequestId() + "; Parsed Trip instance; " + tripRequestPayload);
 
-                TripPayload tripResponsePayload = getTripUseCase().createATripRecord(tripRequestPayload);
+                TripPayload tripResponsePayload = tripUseCase.createATripRecord(tripRequestPayload);
 
                 LOGGER.log(context.getAwsRequestId() + "; Trip saved successfully.");
 
@@ -65,7 +67,45 @@ public abstract class TripController extends Controller {
 
     }
 
-    protected TripUseCase getTripUseCase() {
-        return tripUseCase;
+    public static class GetTripRecordsByPeriodFunction  extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
+
+        public GetTripRecordsByPeriodFunction() {
+            super(
+                    ContextFactory.getContext()
+                            .getInstance(TripUseCase.class)
+            );
+        }
+
+        @Override
+        public ResponseMapping handleRequest(RequestMapping requestMapping, Context context) {
+            LambdaLogger LOGGER = context.getLogger();
+
+            try {
+                LOGGER.log(context.getAwsRequestId() + "; Request for listing trips by period.");
+
+                final String startDate = requestMapping.getPathParameters().get("start");
+                final String endDate = requestMapping.getPathParameters().get("end");
+
+                LOGGER.log(
+                        context.getAwsRequestId() + "; Parameter for listing, start date [" + startDate + "] and" +
+                                " end date [" + endDate + "]"
+                );
+
+                List<TripPayload> tripsPayloadResponse = tripUseCase.listTripsByPeriod(startDate, endDate);
+
+                return ResponseMapping.builder()
+                        .setStatusCode(200)
+                        .setObjectBody(tripsPayloadResponse)
+                        .build();
+            } catch (InvalidSuppliedDataException e) {
+                LOGGER.log(context.getAwsRequestId() + "; " + e.getMessage());
+
+                return ResponseMapping.builder()
+                        .setStatusCode(400)
+                        .setRawBody(e.getMessage())
+                        .build();
+            }
+        }
+
     }
 }

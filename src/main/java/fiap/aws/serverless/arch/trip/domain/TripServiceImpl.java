@@ -5,6 +5,7 @@ import fiap.aws.serverless.arch.common.domain.exception.InvalidSuppliedDataExcep
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class TripServiceImpl implements TripService {
 
@@ -111,6 +112,47 @@ public class TripServiceImpl implements TripService {
         tripRepository.save(trip);
 
         return trip;
+    }
+
+    @Override
+    public void validateQueryStringStartDate(String startDate) throws InvalidSuppliedDataException {
+        if (startDate == null) {
+            throw new InvalidSuppliedDataException("Query string start date is mandatory.");
+        }
+
+        startDate = startDate.trim();
+
+        try {
+            LocalDate.parse(startDate, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new InvalidSuppliedDataException(
+                    "Invalid query string start date [" + startDate + "], the supplied value must follow the pattern" +
+                            " [" + DATE_FORMAT_PATTERN + "]."
+            );
+        }
+    }
+
+    @Override
+    public void validateQueryStringEndDate(String endDate) throws InvalidSuppliedDataException {
+        if (endDate == null) {
+            throw new InvalidSuppliedDataException("Query string end date is mandatory.");
+        }
+
+        endDate = endDate.trim();
+
+        try {
+            LocalDate.parse(endDate, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new InvalidSuppliedDataException(
+                    "Invalid query string end date [" + endDate + "], the supplied value must follow the pattern" +
+                            " [" + DATE_FORMAT_PATTERN + "]."
+            );
+        }
+    }
+
+    @Override
+    public List<Trip> listTripsByPeriod(String startDate, String endDate) {
+        return tripRepository.listTripsByPeriod(startDate, endDate);
     }
 
 }

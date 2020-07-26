@@ -1,12 +1,17 @@
 package fiap.aws.serverless.arch.trip.domain.usecase;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fiap.aws.serverless.arch.common.domain.exception.InvalidSuppliedDataException;
 import fiap.aws.serverless.arch.trip.domain.Trip;
 import fiap.aws.serverless.arch.trip.domain.TripService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TripUseCase {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class TripPayload {
         @JsonProperty
         String country;
@@ -34,7 +39,7 @@ public class TripUseCase {
             return new TripPayload(
                     trip.getCountry(),
                     trip.getCity(),
-                    trip.getDate(),
+                    dateFormattedToBePrinted(trip.getDate()),
                     trip.getReason()
             );
         }
@@ -43,7 +48,7 @@ public class TripUseCase {
             return new Trip(
                     country,
                     city,
-                    date,
+                    dateFormattedToBeStored(date),
                     reason
             );
         }
@@ -56,6 +61,14 @@ public class TripUseCase {
                     ", date='" + date + '\'' +
                     ", reason='" + reason + '\'' +
                     '}';
+        }
+
+        static String dateFormattedToBeStored(String date) {
+            return date.replace("/", "-");
+        }
+
+        static String dateFormattedToBePrinted(String date) {
+            return date.replace("-", "/");
         }
     }
 
@@ -74,6 +87,19 @@ public class TripUseCase {
         Trip persistedTrip = this.tripService.save(tripPayload.toTrip());
 
         return TripPayload.of(persistedTrip);
+    }
+
+    public List<TripPayload> listTripsByPeriod(String startDate, String endDate) throws InvalidSuppliedDataException {
+        this.tripService.validateQueryStringStartDate(startDate);
+        this.tripService.validateQueryStringEndDate(endDate);
+
+        String startDateFormattedAsStored = TripPayload.dateFormattedToBeStored(startDate);
+        String endDateFormattedAsStored = TripPayload.dateFormattedToBeStored(endDate);
+
+        return this.tripService.listTripsByPeriod(startDateFormattedAsStored, endDateFormattedAsStored)
+                .stream()
+                .map(TripPayload::of)
+                .collect(Collectors.toList());
     }
 
 }

@@ -57,3 +57,22 @@ Resources:
           Properties:
             Path: /trips
             Method: post
+
+  GetTripRecordsByPeriodFunction:
+    Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: target/aws.serverless.arch-1.0-SNAPSHOT-jar-with-dependencies.jar
+        Handler: fiap.aws.serverless.arch.trip.domain.TripController$GetTripRecordsByPeriodFunction::handleRequest
+        Runtime: java8
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: !Ref TripTable
+        Events:
+          GetStudyRecordsByPeriod:
+            Type: Api
+            Properties:
+              Path: /trips
+              Method: get
+              RequestParameters:
+                - method.request.querystring.start
+                - method.request.querystring.end
