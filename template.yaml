@@ -68,7 +68,7 @@ Resources:
           - DynamoDBCrudPolicy:
               TableName: !Ref TripTable
         Events:
-          GetStudyRecordsByPeriod:
+          GetTripRecordsByPeriod:
             Type: Api
             Properties:
               Path: /trips

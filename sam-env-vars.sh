@@ -13,6 +13,10 @@ envvars=$( cat <<EOF
   "CreateATripRecordFunction": {
     "ENDPOINT_OVERRIDE": "http://$toip:8000",
     "TABLE_NAME": "trip_mgnt"
+  },
+  "GetTripRecordsByPeriodFunction": {
+    "ENDPOINT_OVERRIDE": "http://$toip:8000",
+    "TABLE_NAME": "trip_mgnt"
   }
 }
 EOF
