@@ -1,8 +1,10 @@
 # Desenvolvimento Local
   
-1 - Confirmar que o container do dynamodb está rodando localmente;
+1 - Criar diretório para volume do banco dynamodb no host local, e iniciar container ***aws dynamodb***;
 
-    $ docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data
+    $ export DYNAMODB_HOME="$HOME/.dynamodb/local"
+    $ mkdir -p "$DYNAMODB_HOME"
+    $ docker run -p 8000:8000 -v "$DYNAMODB_HOME:/data/" amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data
   
 2 - Criação tabela dynamodb;
 
