@@ -46,7 +46,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/aws.serverless.arch-1.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: fiap.aws.serverless.arch.trip.domain.TripController.CreateATripRecordFunction::handleRequest
+      Handler: fiap.aws.serverless.arch.trip.domain.TripController$CreateATripRecordFunction::handleRequest
       Runtime: java8
       Policies:
         - DynamoDBCrudPolicy:
