@@ -14,7 +14,6 @@
             AttributeName=country,AttributeType=S \
             AttributeName=date,AttributeType=S \
             AttributeName=city,AttributeType=S \
-            AttributeName=reason,AttributeType=S \
         --key-schema \
             AttributeName=country,KeyType=HASH \
             AttributeName=date,KeyType=RANGE \
