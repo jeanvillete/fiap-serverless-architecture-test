@@ -4,7 +4,7 @@
 
     $ export DYNAMODB_HOME="$HOME/.dynamodb/local"
     $ mkdir -p "$DYNAMODB_HOME"
-    $ docker run -p 8000:8000 -v "$DYNAMODB_HOME:/data/" amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data
+    $ docker run -p 8000:8000 -v "$DYNAMODB_HOME:/data/" --name dynamodb -d amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data
   
 2 - Criação tabela dynamodb;
 
