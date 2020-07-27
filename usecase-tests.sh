@@ -60,3 +60,11 @@ curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/argentina'
 
 # lista registros de viagens por país; united states of america
 curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/united%20states%20of%20america'
+
+# lista registros de viagens por país (path variable) e cidade (query string, contains), país = brasil , city like 'ber'
+# apresenta; uberaba, bertioga, uberlandia
+curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/brasil/?city=ber'
+
+# lista registros de viagens por país (path variable) e cidade (query string, contains), país = brasil , city like 'ano'
+# apresenta; florianopolis, milano
+curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/brasil/?city=ano'
