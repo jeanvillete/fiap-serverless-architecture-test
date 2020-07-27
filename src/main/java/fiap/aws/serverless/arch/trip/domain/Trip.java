@@ -38,31 +38,51 @@ public class Trip {
         this.reason = reason;
     }
 
-    public String getCountry() {
-        return country;
+    public String getPartition() {
+        return partition;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getReason() {
-        return reason;
+    public void setPartition(String partition) {
+        this.partition = partition;
     }
 
     public String getUuid() {
         return uuid;
     }
 
-    public String getPartition() {
-        return partition;
-    }
-
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
