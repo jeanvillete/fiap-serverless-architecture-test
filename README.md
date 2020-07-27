@@ -15,6 +15,7 @@
             AttributeName=uuid,AttributeType=S \
             AttributeName=date,AttributeType=S \
             AttributeName=country,AttributeType=S \
+            AttributeName=city,AttributeType=S \
         --key-schema \
             AttributeName=partition,KeyType=HASH \
             AttributeName=uuid,KeyType=RANGE \
