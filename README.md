@@ -87,8 +87,18 @@ Os casos de uso mapeados para lidar com este recurso são;
 Foi disponibilizado um bash script denominado ` usecase-tests.sh `, onde é apresentado uma série de comandos com ` curl `
 e um breve comentário do estado esperado antes e depois da execução dos passos.
 
-    $ ./usecase-tests.sh
+    $ ./usecase-tests.sh http://127.0.0.1:3000
     
 # Empacotamento de Deploy das funções lambda
 
     $ ./sam-pack-and-deploy.sh
+    
+# Versão em PROD
+
+O projeto está devidamente sendo empacotado e deployado, e o recurso acessível através da url exposta pelo AWS;
+***https://rwdmogsbyh.execute-api.us-east-1.amazonaws.com/Prod/***
+    
+Logo todos os serviços podem ser acessados através deste endereço, ou seja, o próprio script ` usecase-tests.sh ` pode
+ser invocado fornecendo os recursos de PROD, e.g;
+
+    $ ./usecase-tests.sh 'https://rwdmogsbyh.execute-api.us-east-1.amazonaws.com/Prod/'
