@@ -34,8 +34,6 @@ public class TripRepository {
         }};
 
         final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
-                .withIndexName("dateLSI")
-                .withConsistentRead(false)
                 .withKeyConditionExpression("#date between :startDate and :endDate")
                 .withExpressionAttributeValues(expressionAttributeValues)
                 .withExpressionAttributeNames(expressionAttributeNames);
