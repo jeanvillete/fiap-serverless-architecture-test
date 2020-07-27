@@ -118,4 +118,14 @@ public class TripUseCase {
                 .collect(Collectors.toList());
     }
 
+    public List<TripPayload> listTripsByCountryAndCityLikely(String country, String city) throws InvalidSuppliedDataException {
+        this.tripService.validateCountry(country);
+        this.tripService.validateCity(city);
+
+        return this.tripService.listTripsByCountryAndCityLikely(country, city)
+                .stream()
+                .map(TripPayload::of)
+                .collect(Collectors.toList());
+    }
+
 }

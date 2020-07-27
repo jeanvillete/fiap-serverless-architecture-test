@@ -160,4 +160,9 @@ public class TripServiceImpl implements TripService {
         return tripRepository.listTripsByCountry(country);
     }
 
+    @Override
+    public List<Trip> listTripsByCountryAndCityLikely(String country, String city) {
+        return tripRepository.listTripsByCountryAndCityLikely(country, city);
+    }
+
 }

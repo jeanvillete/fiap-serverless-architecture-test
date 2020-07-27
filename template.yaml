@@ -26,6 +26,8 @@ Resources:
           AttributeType: S
         - AttributeName: country
           AttributeType: S
+        - AttributeName: city
+          AttributeType: S
       KeySchema:
         - AttributeName: partition
           KeyType: HASH
@@ -45,6 +47,16 @@ Resources:
             - AttributeName: partition
               KeyType: HASH
             - AttributeName: country
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: countryAndCityLikelyLSI
+          KeySchema:
+            - AttributeName: partition
+              KeyType: HASH
+            - AttributeName: country
+              KeyType: RANGE
+            - AttributeName: city
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
@@ -100,3 +112,21 @@ Resources:
           Properties:
             Path: /trips/{country}
             Method: get
+
+  GetTripRecordsByCountryAndCityLikelyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/aws.serverless.arch-1.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: fiap.aws.serverless.arch.trip.domain.TripController$GetTripRecordsByCountryAndCityLikelyFunction::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        GetTripRecordsByCountryAndCityLikely:
+          Type: Api
+          Properties:
+            Path: /trips/{country}/
+            Method: get
+            RequestParameters:
+              - method.request.querystring.city

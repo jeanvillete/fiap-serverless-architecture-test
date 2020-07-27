@@ -21,6 +21,7 @@
         --local-secondary-indexes \
             'IndexName=dateLSI,KeySchema=[{AttributeName=partition,KeyType=HASH},{AttributeName=date,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
             'IndexName=countryLSI,KeySchema=[{AttributeName=partition,KeyType=HASH},{AttributeName=country,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
+            'IndexName=countryAndCityLikelyLSI,KeySchema=[{AttributeName=partition,KeyType=HASH},{AttributeName=country,KeyType=RANGE},{AttributeName=city,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
         --billing-mode PAY_PER_REQUEST \
         --endpoint-url http://localhost:8000
         

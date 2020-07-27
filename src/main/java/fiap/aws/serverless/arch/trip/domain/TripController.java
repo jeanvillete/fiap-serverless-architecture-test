@@ -159,4 +159,55 @@ public abstract class TripController extends Controller {
         }
 
     }
+
+    public static class GetTripRecordsByCountryAndCityLikelyFunction extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
+
+        public GetTripRecordsByCountryAndCityLikelyFunction() {
+            super(
+                    ContextFactory.getContext()
+                            .getInstance(TripUseCase.class)
+            );
+        }
+
+        @Override
+        public ResponseMapping handleRequest(RequestMapping requestMapping, Context context) {
+            LambdaLogger LOGGER = context.getLogger();
+
+            try {
+                LOGGER.log(context.getAwsRequestId() + "; Request for listing trips by country and city likely.");
+
+                Map<String, String> pathVariables = requestMapping.getPathParameters();
+                if (pathVariables == null || pathVariables.isEmpty()) {
+                    throw new InvalidSuppliedDataException("Path variable country is mandatory.");
+                }
+                final String country = pathVariables.get("country");
+
+                Map<String, String> queryStrings = requestMapping.getQueryStringParameters();
+                if (queryStrings == null || queryStrings.isEmpty()) {
+                    throw new InvalidSuppliedDataException("Query string city is mandatory.");
+                }
+                final String cityLikely = pathVariables.get("city");
+
+                LOGGER.log(
+                        context.getAwsRequestId() + "; Path variable country value [" + country + "] and" +
+                                " query string city [" + cityLikely + "]"
+                );
+
+                List<TripPayload> tripsPayloadResponse = tripUseCase.listTripsByCountryAndCityLikely(country, cityLikely);
+
+                return ResponseMapping.builder()
+                        .setStatusCode(200)
+                        .setObjectBody(tripsPayloadResponse)
+                        .build();
+            } catch (InvalidSuppliedDataException e) {
+                LOGGER.log(context.getAwsRequestId() + "; " + e.getMessage());
+
+                return ResponseMapping.builder()
+                        .setStatusCode(400)
+                        .setRawBody(e.getMessage())
+                        .build();
+            }
+        }
+
+    }
 }

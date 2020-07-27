@@ -24,4 +24,6 @@ public interface TripService {
 
     List<Trip> listTripsByCountry(String country);
 
+    List<Trip> listTripsByCountryAndCityLikely(String country, String city);
+
 }
