@@ -11,10 +11,10 @@ public class TripServiceImpl implements TripService {
 
     public static final String DATE_FORMAT_PATTERN = "yyyy/MM/dd";
 
-    private static int COUNTRY_MIN_LENGTH = 4;
+    private static int COUNTRY_MIN_LENGTH = 2;
     private static int COUNTRY_MAX_LENGTH = 35;
 
-    private static int CITY_MIN_LENGTH = 4;
+    private static int CITY_MIN_LENGTH = 2;
     private static int CITY_MAX_LENGTH = 50;
 
     private static int REASON_MIN_LENGTH = 10;
