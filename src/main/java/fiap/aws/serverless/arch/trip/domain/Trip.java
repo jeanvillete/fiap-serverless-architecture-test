@@ -58,6 +58,10 @@ public class Trip {
         return uuid;
     }
 
+    public String getPartition() {
+        return partition;
+    }
+
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
