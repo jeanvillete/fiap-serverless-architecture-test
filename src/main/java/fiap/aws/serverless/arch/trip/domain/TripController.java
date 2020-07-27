@@ -22,7 +22,7 @@ public abstract class TripController extends Controller {
         this.tripUseCase = tripUseCase;
     }
 
-    public static class CreateATripRecordFunction  extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
+    public static class CreateATripRecordFunction extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
 
         public CreateATripRecordFunction() {
             super(
@@ -68,7 +68,7 @@ public abstract class TripController extends Controller {
 
     }
 
-    public static class GetTripRecordsByPeriodFunction  extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
+    public static class GetTripRecordsByPeriodFunction extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
 
         public GetTripRecordsByPeriodFunction() {
             super(
@@ -117,7 +117,7 @@ public abstract class TripController extends Controller {
 
     }
 
-    public static class GetTripRecordsByCountryFunction  extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
+    public static class GetTripRecordsByCountryFunction extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
 
         public GetTripRecordsByCountryFunction() {
             super(
