@@ -15,10 +15,11 @@
             AttributeName=date,AttributeType=S \
             AttributeName=city,AttributeType=S \
         --key-schema \
+            AttributeName=country,KeyType=HASH \
+            AttributeName=city,KeyType=RANGE \
             AttributeName=date,KeyType=RANGE \
         --local-secondary-indexes \
-            'IndexName=countryLSI,KeySchema=[{AttributeName=country,KeyType=HASH}],Projection={ProjectionType=ALL}' \
-            'IndexName=cityLSI,KeySchema=[{AttributeName=country,KeyType=HASH},{AttributeName=city,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
+            'IndexName=dateLSI,KeySchema=[{AttributeName=date,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
         --billing-mode PAY_PER_REQUEST \
         --endpoint-url http://localhost:8000
         
