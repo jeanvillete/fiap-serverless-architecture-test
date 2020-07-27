@@ -20,11 +20,15 @@ Resources:
       AttributeDefinitions:
         - AttributeName: partition
           AttributeType: S
+        - AttributeName: uuid
+          AttributeType: S
         - AttributeName: date
           AttributeType: S
       KeySchema:
         - AttributeName: partition
           KeyType: HASH
+        - AttributeName: uuid
+          KeyType: RANGE
         - AttributeName: date
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST

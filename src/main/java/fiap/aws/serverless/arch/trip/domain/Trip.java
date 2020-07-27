@@ -13,7 +13,7 @@ public class Trip {
     @DynamoDBHashKey(attributeName = "partition")
     private String partition = PARTITION_NAME;
 
-    @DynamoDBAttribute(attributeName = "uuid")
+    @DynamoDBRangeKey(attributeName = "uuid")
     private String uuid;
 
     @DynamoDBAttribute(attributeName = "country")

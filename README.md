@@ -12,9 +12,11 @@
         --table-name trip_mgnt \
         --attribute-definitions \
             AttributeName=partition,AttributeType=S \
+            AttributeName=uuid,AttributeType=S \
             AttributeName=date,AttributeType=S \
         --key-schema \
             AttributeName=partition,KeyType=HASH \
+            AttributeName=uuid,KeyType=RANGE \
             AttributeName=date,KeyType=RANGE \
         --billing-mode PAY_PER_REQUEST \
         --endpoint-url http://localhost:8000
