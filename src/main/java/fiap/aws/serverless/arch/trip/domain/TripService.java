@@ -22,4 +22,6 @@ public interface TripService {
 
     List<Trip> listTripsByPeriod(String startDate, String endDate);
 
+    List<Trip> listTripsByCountry(String country);
+
 }

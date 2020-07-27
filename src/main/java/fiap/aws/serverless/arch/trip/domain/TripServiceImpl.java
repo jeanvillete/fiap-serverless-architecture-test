@@ -155,4 +155,9 @@ public class TripServiceImpl implements TripService {
         return tripRepository.listTripsByPeriod(startDate, endDate);
     }
 
+    @Override
+    public List<Trip> listTripsByCountry(String country) {
+        return tripRepository.listTripsByCountry(country);
+    }
+
 }

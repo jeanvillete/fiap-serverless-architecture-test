@@ -46,4 +46,24 @@ public class TripRepository {
 
         return dynamoDBMapper.query(Trip.class, queryExpression);
     }
+
+    public List<Trip> listTripsByCountry(String country) {
+        final Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>(){{
+            put(":partition", new AttributeValue().withS(PARTITION_NAME));
+            put(":country", new AttributeValue().withS(country));
+        }};
+
+        final Map<String, String> expressionAttributeNames = new HashMap<String, String>(){{
+            put("#partition", "partition");
+        }};
+
+        final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
+                .withIndexName("countryLSI")
+                .withConsistentRead(false)
+                .withKeyConditionExpression("#partition = :partition AND country = :country")
+                .withExpressionAttributeValues(expressionAttributeValues)
+                .withExpressionAttributeNames(expressionAttributeNames);
+
+        return dynamoDBMapper.query(Trip.class, queryExpression);
+    }
 }

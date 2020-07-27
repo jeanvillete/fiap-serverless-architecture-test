@@ -24,6 +24,8 @@ Resources:
           AttributeType: S
         - AttributeName: date
           AttributeType: S
+        - AttributeName: country
+          AttributeType: S
       KeySchema:
         - AttributeName: partition
           KeyType: HASH
@@ -35,6 +37,14 @@ Resources:
             - AttributeName: partition
               KeyType: HASH
             - AttributeName: date
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: countryLSI
+          KeySchema:
+            - AttributeName: partition
+              KeyType: HASH
+            - AttributeName: country
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
@@ -74,3 +84,19 @@ Resources:
             RequestParameters:
               - method.request.querystring.start
               - method.request.querystring.end
+
+  GetTripRecordsByCountryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/aws.serverless.arch-1.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: fiap.aws.serverless.arch.trip.domain.TripController$GetTripRecordsByCountryFunction::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        GetTripRecordsByCountry:
+          Type: Api
+          Properties:
+            Path: /trips/{country}
+            Method: get

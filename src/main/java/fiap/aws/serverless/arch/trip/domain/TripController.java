@@ -116,4 +116,47 @@ public abstract class TripController extends Controller {
         }
 
     }
+
+    public static class GetTripRecordsByCountryFunction  extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
+
+        public GetTripRecordsByCountryFunction() {
+            super(
+                    ContextFactory.getContext()
+                            .getInstance(TripUseCase.class)
+            );
+        }
+
+        @Override
+        public ResponseMapping handleRequest(RequestMapping requestMapping, Context context) {
+            LambdaLogger LOGGER = context.getLogger();
+
+            try {
+                LOGGER.log(context.getAwsRequestId() + "; Request for listing trips by country.");
+
+                Map<String, String> pathVariables = requestMapping.getPathParameters();
+                if (pathVariables == null || pathVariables.isEmpty()) {
+                    throw new InvalidSuppliedDataException("Path variable country is mandatory.");
+                }
+
+                final String country = pathVariables.get("country");
+
+                LOGGER.log(context.getAwsRequestId() + "; Path variable country value [" + country + "]");
+
+                List<TripPayload> tripsPayloadResponse = tripUseCase.listTripsByCountry(country);
+
+                return ResponseMapping.builder()
+                        .setStatusCode(200)
+                        .setObjectBody(tripsPayloadResponse)
+                        .build();
+            } catch (InvalidSuppliedDataException e) {
+                LOGGER.log(context.getAwsRequestId() + "; " + e.getMessage());
+
+                return ResponseMapping.builder()
+                        .setStatusCode(400)
+                        .setRawBody(e.getMessage())
+                        .build();
+            }
+        }
+
+    }
 }

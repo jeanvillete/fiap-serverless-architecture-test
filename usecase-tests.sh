@@ -40,11 +40,11 @@ curl -w "\n ---- \n" -v "http://$targetHost/trips" -d '{"country":"brasil", "cit
 curl -w "\n ---- \n" -v "http://$targetHost/trips" -d '{"country":"brasil", "city":"campinas", "date": "2019/06/07", "reason": "conhecendo os interiores de são paulo"}'
 curl -w "\n ---- \n" -v "http://$targetHost/trips" -d '{"country":"brasil", "city":"bertioga", "date": "2020/07/26", "reason": "vontade de descer pra praia fora da pandemia"}'
 
-# lista registros de viagens dentro de 2010 a 2016 (start 2010/01/01, end 2016/12/31)
+# lista registros de viagens por período, dentro de 2010 a 2016 (start 2010/01/01, end 2016/12/31)
 curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2010%2F01%2F01&end=2016%2F12%2F31'
 
-# lista registros de viagens dentro do ano de 2019 (start 2019/01/01, end 2019/12/31)
+# lista registros de viagens por período, dentro do ano de 2019 (start 2019/01/01, end 2019/12/31)
 curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2019%2F01%2F01&end=2019%2F12%2F31'
 
-# lista registros de viagens dentro do ano de 2020 (start 2020/01/01, end 2020/12/31)
+# lista registros de viagens por período, dentro do ano de 2020 (start 2020/01/01, end 2020/12/31)
 curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2020%2F01%2F01&end=2020%2F12%2F31'
