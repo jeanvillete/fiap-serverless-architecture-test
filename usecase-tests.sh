@@ -48,3 +48,15 @@ curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2019%2F01%2F01&end=20
 
 # lista registros de viagens por período, dentro do ano de 2020 (start 2020/01/01, end 2020/12/31)
 curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2020%2F01%2F01&end=2020%2F12%2F31'
+
+# lista registros de viagens por país; brasil
+curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/brasil'
+
+# lista registros de viagens por país; italy
+curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/italy'
+
+# lista registros de viagens por país; argentina
+curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/argentina'
+
+# lista registros de viagens por país; united states of america
+curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/united%20states%20of%20america'
