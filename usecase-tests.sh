@@ -41,30 +41,30 @@ curl -w "\n ---- \n" -v "http://$targetHost/trips" -d '{"country":"brasil", "cit
 curl -w "\n ---- \n" -v "http://$targetHost/trips" -d '{"country":"brasil", "city":"bertioga", "date": "2020/07/26", "reason": "vontade de descer pra praia fora da pandemia"}'
 
 # lista registros de viagens por período, dentro de 2010 a 2016 (start 2010/01/01, end 2016/12/31)
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2010%2F01%2F01&end=2016%2F12%2F31'
+curl -w "\n ---- \n" -v "http://$targetHost/trips?start=2010%2F01%2F01&end=2016%2F12%2F31"
 
 # lista registros de viagens por período, dentro do ano de 2019 (start 2019/01/01, end 2019/12/31)
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2019%2F01%2F01&end=2019%2F12%2F31'
+curl -w "\n ---- \n" -v "http://$targetHost/trips?start=2019%2F01%2F01&end=2019%2F12%2F31"
 
 # lista registros de viagens por período, dentro do ano de 2020 (start 2020/01/01, end 2020/12/31)
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips?start=2020%2F01%2F01&end=2020%2F12%2F31'
+curl -w "\n ---- \n" -v "http://$targetHost/trips?start=2020%2F01%2F01&end=2020%2F12%2F31"
 
 # lista registros de viagens por país; brasil
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/brasil'
+curl -w "\n ---- \n" -v "http://$targetHost/trips/brasil"
 
 # lista registros de viagens por país; italy
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/italy'
+curl -w "\n ---- \n" -v "http://$targetHost/trips/italy"
 
 # lista registros de viagens por país; argentina
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/argentina'
+curl -w "\n ---- \n" -v "http://$targetHost/trips/argentina"
 
 # lista registros de viagens por país; united states of america
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/united%20states%20of%20america'
+curl -w "\n ---- \n" -v "http://$targetHost/trips/united%20states%20of%20america"
 
 # lista registros de viagens por país (path variable) e cidade (query string, contains), país = brasil , city like 'ber'
 # apresenta; uberaba, bertioga, uberlandia
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/brasil/?city=ber'
+curl -w "\n ---- \n" -v "http://$targetHost/trips/brasil/?city=ber"
 
 # lista registros de viagens por país (path variable) e cidade (query string, contains), país = brasil , city like 'ano'
 # apresenta; florianopolis, milano
-curl -w "\n ---- \n" -v 'http://127.0.0.1:3000/trips/brasil/?city=ano'
+curl -w "\n ---- \n" -v "http://$targetHost/trips/brasil/?city=ano"
