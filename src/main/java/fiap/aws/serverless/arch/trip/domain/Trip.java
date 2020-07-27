@@ -1,6 +1,9 @@
 package fiap.aws.serverless.arch.trip.domain;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "trip_mgnt")
 public class Trip {
@@ -8,13 +11,13 @@ public class Trip {
     @DynamoDBHashKey(attributeName = "uuid")
     private String uuid;
 
-    @DynamoDBHashKey(attributeName = "country")
+    @DynamoDBAttribute(attributeName = "country")
     private String country;
 
-    @DynamoDBRangeKey(attributeName = "date")
+    @DynamoDBIndexRangeKey(attributeName = "date")
     private String date;
 
-    @DynamoDBIndexRangeKey(attributeName = "city", localSecondaryIndexName = "cityLSI")
+    @DynamoDBAttribute(attributeName = "city")
     private String city;
 
     @DynamoDBAttribute(attributeName = "reason")
