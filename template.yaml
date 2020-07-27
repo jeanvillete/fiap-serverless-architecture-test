@@ -52,10 +52,8 @@ Resources:
             ProjectionType: ALL
         - IndexName: countryAndCityLikelyLSI
           KeySchema:
-            - AttributeName: partition
-              KeyType: HASH
             - AttributeName: country
-              KeyType: RANGE
+              KeyType: HASH
             - AttributeName: city
               KeyType: RANGE
           Projection:
