@@ -88,3 +88,7 @@ Foi disponibilizado um bash script denominado ` usecase-tests.sh `, onde é apre
 e um breve comentário do estado esperado antes e depois da execução dos passos.
 
     $ ./usecase-tests.sh
+    
+# Empacotamento de Deploy das funções lambda
+
+    $ ./sam-pack-and-deploy.sh
