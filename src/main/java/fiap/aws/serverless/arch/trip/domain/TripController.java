@@ -186,7 +186,7 @@ public abstract class TripController extends Controller {
                 if (queryStrings == null || queryStrings.isEmpty()) {
                     throw new InvalidSuppliedDataException("Query string city is mandatory.");
                 }
-                final String cityLikely = pathVariables.get("city");
+                final String cityLikely = queryStrings.get("city");
 
                 LOGGER.log(
                         context.getAwsRequestId() + "; Path variable country value [" + country + "] and" +
