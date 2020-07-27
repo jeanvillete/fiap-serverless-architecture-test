@@ -102,3 +102,17 @@ Resources:
             Method: get
             RequestParameters:
               - method.request.querystring.city
+
+Outputs:
+
+  CreateATripRecordFunction:
+    Description: "CreateATripRecordFunction Lambda Function ARN"
+    Value: !GetAtt CreateATripRecordFunction.Arn
+
+  GetTripRecordsByPeriodFunction:
+    Description: "GetTripRecordsByPeriodFunction Lambda Function ARN"
+    Value: !GetAtt GetTripRecordsByPeriodFunction.Arn
+
+  GetTripRecordsByCountryAndCityLikelyFunction:
+    Description: "GetTripRecordsByCountryAndCityLikelyFunction Lambda Function ARN"
+    Value: !GetAtt GetTripRecordsByCountryAndCityLikelyFunction.Arn
