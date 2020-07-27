@@ -33,7 +33,7 @@ public class TripRepository {
         }};
 
         final Map<String, String> expressionAttributeNames = new HashMap<String, String>(){{
-            put("#partition", "date");
+            put("#partition", "partition");
             put("#date", "date");
         }};
 
