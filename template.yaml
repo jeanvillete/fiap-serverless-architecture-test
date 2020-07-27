@@ -29,8 +29,15 @@ Resources:
           KeyType: HASH
         - AttributeName: uuid
           KeyType: RANGE
-        - AttributeName: date
-          KeyType: RANGE
+      LocalSecondaryIndexes:
+        - IndexName: dateLSI
+          KeySchema:
+            - AttributeName: partition
+              KeyType: HASH
+            - AttributeName: date
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
       BillingMode: PAY_PER_REQUEST
 
   CreateATripRecordFunction:

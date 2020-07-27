@@ -38,6 +38,8 @@ public class TripRepository {
         }};
 
         final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
+                .withIndexName("dateLSI")
+                .withConsistentRead(false)
                 .withKeyConditionExpression("#partition = :partition AND #date BETWEEN :startDate AND :endDate")
                 .withExpressionAttributeValues(expressionAttributeValues)
                 .withExpressionAttributeNames(expressionAttributeNames);
