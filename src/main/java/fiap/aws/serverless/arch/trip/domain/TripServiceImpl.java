@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TripServiceImpl implements TripService {
 
@@ -162,7 +163,21 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<Trip> listTripsByCountryAndCityLikely(String country, String city) {
-        return tripRepository.listTripsByCountryAndCityLikely(country, city);
+        return tripRepository.listTripsByCountry(country)
+                .stream()
+                .filter(trip -> {
+                    if (city == null || city.isEmpty()) {
+                        return true;
+                    }
+
+                    String tripCity = trip.getCity();
+                    if (tripCity == null || tripCity.isEmpty()) {
+                        return false;
+                    }
+
+                    return tripCity.toLowerCase().contains(city.toLowerCase());
+                })
+                .collect(Collectors.toList());
     }
 
 }

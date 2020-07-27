@@ -66,19 +66,4 @@ public class TripRepository {
 
         return dynamoDBMapper.query(Trip.class, queryExpression);
     }
-
-    public List<Trip> listTripsByCountryAndCityLikely(String country, String city) {
-        final Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>(){{
-            put(":country", new AttributeValue().withS(country));
-            put(":city", new AttributeValue().withS(city));
-        }};
-
-        final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
-                .withIndexName("countryAndCityLikelyLSI")
-                .withConsistentRead(false)
-                .withKeyConditionExpression("country = :country AND BEGINS_WITH(city, :city)")
-                .withExpressionAttributeValues(expressionAttributeValues);
-
-        return dynamoDBMapper.query(Trip.class, queryExpression);
-    }
 }

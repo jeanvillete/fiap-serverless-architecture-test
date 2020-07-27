@@ -13,13 +13,13 @@ public class Trip {
     @DynamoDBRangeKey(attributeName = "uuid")
     private String uuid;
 
-    @DynamoDBIndexRangeKey(attributeName = "country", localSecondaryIndexNames = { "countryLSI", "countryAndCityLikelyLSI" })
+    @DynamoDBIndexRangeKey(attributeName = "country", localSecondaryIndexName = "countryLSI")
     private String country;
 
     @DynamoDBIndexRangeKey(attributeName = "date", localSecondaryIndexName = "dateLSI")
     private String date;
 
-    @DynamoDBIndexRangeKey(attributeName = "city", localSecondaryIndexName = "countryAndCityLikelyLSI")
+    @DynamoDBAttribute(attributeName = "city")
     private String city;
 
     @DynamoDBAttribute(attributeName = "reason")

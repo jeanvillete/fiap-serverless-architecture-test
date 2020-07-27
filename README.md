@@ -15,14 +15,12 @@
             AttributeName=uuid,AttributeType=S \
             AttributeName=date,AttributeType=S \
             AttributeName=country,AttributeType=S \
-            AttributeName=city,AttributeType=S \
         --key-schema \
             AttributeName=partition,KeyType=HASH \
             AttributeName=uuid,KeyType=RANGE \
         --local-secondary-indexes \
             'IndexName=dateLSI,KeySchema=[{AttributeName=partition,KeyType=HASH},{AttributeName=date,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
             'IndexName=countryLSI,KeySchema=[{AttributeName=partition,KeyType=HASH},{AttributeName=country,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
-            'IndexName=countryAndCityLikelyLSI,KeySchema=[{AttributeName=country,KeyType=HASH},{AttributeName=city,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
         --billing-mode PAY_PER_REQUEST \
         --endpoint-url http://localhost:8000
         
