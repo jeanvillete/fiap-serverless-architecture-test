@@ -5,6 +5,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 @DynamoDBTable(tableName = "trip_mgnt")
 public class Trip {
 
+    @DynamoDBHashKey(attributeName = "uuid")
+    private String uuid;
+
     @DynamoDBHashKey(attributeName = "country")
     private String country;
 
@@ -41,5 +44,13 @@ public class Trip {
 
     public String getReason() {
         return reason;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

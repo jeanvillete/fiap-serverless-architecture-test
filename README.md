@@ -11,13 +11,12 @@
     $ aws dynamodb create-table \
         --table-name trip_mgnt \
         --attribute-definitions \
+            AttributeName=uuid,AttributeType=S \
             AttributeName=country,AttributeType=S \
-            AttributeName=date,AttributeType=S \
             AttributeName=city,AttributeType=S \
+            AttributeName=date,AttributeType=S \
         --key-schema \
-            AttributeName=country,KeyType=HASH \
-            AttributeName=city,KeyType=RANGE \
-            AttributeName=date,KeyType=RANGE \
+            AttributeName=uuid,KeyType=HASH \
         --local-secondary-indexes \
             'IndexName=dateLSI,KeySchema=[{AttributeName=date,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
         --billing-mode PAY_PER_REQUEST \

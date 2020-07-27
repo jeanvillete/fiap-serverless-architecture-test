@@ -18,19 +18,17 @@ Resources:
     Properties:
       TableName: trip_mgnt
       AttributeDefinitions:
+        - AttributeName: uuid
+          AttributeType: S
         - AttributeName: country
           AttributeType: S
-        - AttributeName: date
-          AttributeType: S
         - AttributeName: city
+          AttributeType: S
+        - AttributeName: date
           AttributeType: S
       KeySchema:
-        - AttributeName: country
+        - AttributeName: uuid
           KeyType: HASH
-        - AttributeName: city
-          KeyType: RANGE
-        - AttributeName: date
-          KeyType: RANGE
       LocalSecondaryIndexes:
         - IndexName: dateLSI
           KeySchema:

@@ -13,6 +13,10 @@ public class TripUseCase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class TripPayload {
+
+        @JsonProperty
+        String uuid;
+
         @JsonProperty
         String country;
 
@@ -28,7 +32,8 @@ public class TripUseCase {
         public TripPayload() {
         }
 
-        public TripPayload(String country, String city, String date, String reason) {
+        public TripPayload(String uuid, String country, String city, String date, String reason) {
+            this.uuid = uuid;
             this.country = country;
             this.city = city;
             this.date = date;
@@ -37,6 +42,7 @@ public class TripUseCase {
 
         static TripPayload of(Trip trip) {
             return new TripPayload(
+                    trip.getUuid(),
                     trip.getCountry(),
                     trip.getCity(),
                     dateFormattedToBePrinted(trip.getDate()),
@@ -56,7 +62,8 @@ public class TripUseCase {
         @Override
         public String toString() {
             return "TripPayload{" +
-                    "country='" + country + '\'' +
+                    "uuid='" + uuid + '\'' +
+                    ", country='" + country + '\'' +
                     ", city='" + city + '\'' +
                     ", date='" + date + '\'' +
                     ", reason='" + reason + '\'' +
