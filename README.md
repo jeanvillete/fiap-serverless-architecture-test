@@ -11,10 +11,10 @@
     $ aws dynamodb create-table \
         --table-name trip_mgnt \
         --attribute-definitions \
-            AttributeName=uuid,AttributeType=S \
+            AttributeName=partition,AttributeType=S \
             AttributeName=date,AttributeType=S \
         --key-schema \
-            AttributeName=uuid,KeyType=HASH \
+            AttributeName=partition,KeyType=HASH \
             AttributeName=date,KeyType=RANGE \
         --billing-mode PAY_PER_REQUEST \
         --endpoint-url http://localhost:8000

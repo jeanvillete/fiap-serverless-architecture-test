@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static fiap.aws.serverless.arch.trip.domain.Trip.PARTITION_NAME;
+
 public class TripRepository {
 
     private final DynamoDBMapper dynamoDBMapper;
@@ -25,16 +27,18 @@ public class TripRepository {
 
     public List<Trip> listTripsByPeriod(String startDate, String endDate) {
         final Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>(){{
+            put(":partition", new AttributeValue().withS(PARTITION_NAME));
             put(":startDate", new AttributeValue().withS(startDate));
             put(":endDate", new AttributeValue().withS(endDate));
         }};
 
         final Map<String, String> expressionAttributeNames = new HashMap<String, String>(){{
+            put("#partition", "date");
             put("#date", "date");
         }};
 
         final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
-                .withKeyConditionExpression("#date between :startDate and :endDate")
+                .withKeyConditionExpression("#partition = :partition AND #date BETWEEN :startDate AND :endDate")
                 .withExpressionAttributeValues(expressionAttributeValues)
                 .withExpressionAttributeNames(expressionAttributeNames);
 

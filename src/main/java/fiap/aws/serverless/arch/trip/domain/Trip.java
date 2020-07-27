@@ -8,7 +8,12 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = "trip_mgnt")
 public class Trip {
 
-    @DynamoDBHashKey(attributeName = "uuid")
+    public static final String PARTITION_NAME = "TRIP";
+
+    @DynamoDBHashKey(attributeName = "partition")
+    private String partition = PARTITION_NAME;
+
+    @DynamoDBAttribute(attributeName = "uuid")
     private String uuid;
 
     @DynamoDBAttribute(attributeName = "country")

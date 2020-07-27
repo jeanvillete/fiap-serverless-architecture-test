@@ -18,12 +18,12 @@ Resources:
     Properties:
       TableName: trip_mgnt
       AttributeDefinitions:
-        - AttributeName: uuid
+        - AttributeName: partition
           AttributeType: S
         - AttributeName: date
           AttributeType: S
       KeySchema:
-        - AttributeName: uuid
+        - AttributeName: partition
           KeyType: HASH
         - AttributeName: date
           KeyType: RANGE
