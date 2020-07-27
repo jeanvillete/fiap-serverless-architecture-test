@@ -17,8 +17,7 @@
             AttributeName=date,AttributeType=S \
         --key-schema \
             AttributeName=uuid,KeyType=HASH \
-        --local-secondary-indexes \
-            'IndexName=dateLSI,KeySchema=[{AttributeName=date,KeyType=RANGE}],Projection={ProjectionType=ALL}' \
+            AttributeName=date,KeyType=RANGE \
         --billing-mode PAY_PER_REQUEST \
         --endpoint-url http://localhost:8000
         
