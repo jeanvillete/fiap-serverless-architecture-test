@@ -85,22 +85,6 @@ Resources:
               - method.request.querystring.start
               - method.request.querystring.end
 
-  GetTripRecordsByCountryFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: target/aws.serverless.arch-1.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: fiap.aws.serverless.arch.trip.domain.TripController$GetTripRecordsByCountryFunction::handleRequest
-      Runtime: java8
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref TripTable
-      Events:
-        GetTripRecordsByCountry:
-          Type: Api
-          Properties:
-            Path: /trips/{country}
-            Method: get
-
   GetTripRecordsByCountryAndCityLikelyFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -114,7 +98,7 @@ Resources:
         GetTripRecordsByCountryAndCityLikely:
           Type: Api
           Properties:
-            Path: /trips/{country}/
+            Path: /trips/{country}
             Method: get
             RequestParameters:
               - method.request.querystring.city

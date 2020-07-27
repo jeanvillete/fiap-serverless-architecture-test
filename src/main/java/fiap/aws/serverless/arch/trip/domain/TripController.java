@@ -117,49 +117,6 @@ public abstract class TripController extends Controller {
 
     }
 
-    public static class GetTripRecordsByCountryFunction extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
-
-        public GetTripRecordsByCountryFunction() {
-            super(
-                    ContextFactory.getContext()
-                            .getInstance(TripUseCase.class)
-            );
-        }
-
-        @Override
-        public ResponseMapping handleRequest(RequestMapping requestMapping, Context context) {
-            LambdaLogger LOGGER = context.getLogger();
-
-            try {
-                LOGGER.log(context.getAwsRequestId() + "; Request for listing trips by country.");
-
-                Map<String, String> pathVariables = requestMapping.getPathParameters();
-                if (pathVariables == null || pathVariables.isEmpty()) {
-                    throw new InvalidSuppliedDataException("Path variable country is mandatory.");
-                }
-
-                final String country = pathVariables.get("country");
-
-                LOGGER.log(context.getAwsRequestId() + "; Path variable country value [" + country + "]");
-
-                List<TripPayload> tripsPayloadResponse = tripUseCase.listTripsByCountry(country);
-
-                return ResponseMapping.builder()
-                        .setStatusCode(200)
-                        .setObjectBody(tripsPayloadResponse)
-                        .build();
-            } catch (InvalidSuppliedDataException e) {
-                LOGGER.log(context.getAwsRequestId() + "; " + e.getMessage());
-
-                return ResponseMapping.builder()
-                        .setStatusCode(400)
-                        .setRawBody(e.getMessage())
-                        .build();
-            }
-        }
-
-    }
-
     public static class GetTripRecordsByCountryAndCityLikelyFunction extends TripController implements RequestHandler<RequestMapping, ResponseMapping> {
 
         public GetTripRecordsByCountryAndCityLikelyFunction() {
@@ -183,10 +140,10 @@ public abstract class TripController extends Controller {
                 final String country = pathVariables.get("country");
 
                 Map<String, String> queryStrings = requestMapping.getQueryStringParameters();
-                if (queryStrings == null || queryStrings.isEmpty()) {
-                    throw new InvalidSuppliedDataException("Query string city is mandatory.");
+                String cityLikely = null;
+                if (queryStrings != null && !queryStrings.isEmpty()) {
+                    cityLikely = queryStrings.get("city");
                 }
-                final String cityLikely = queryStrings.get("city");
 
                 LOGGER.log(
                         context.getAwsRequestId() + "; Path variable country value [" + country + "] and" +
