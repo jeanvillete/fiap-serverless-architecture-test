@@ -12,8 +12,6 @@
         --table-name trip_mgnt \
         --attribute-definitions \
             AttributeName=uuid,AttributeType=S \
-            AttributeName=country,AttributeType=S \
-            AttributeName=city,AttributeType=S \
             AttributeName=date,AttributeType=S \
         --key-schema \
             AttributeName=uuid,KeyType=HASH \
